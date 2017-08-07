@@ -62,6 +62,7 @@
 	    var offsetYSmall = $(".small").offset().top;
 	    var maskWidth = $(".mask").width();
 	    var maskHeight = $(".mask").height();
+	    e = e || window.event;
 	    X = e.pageX-offsetXSmall-maskWidth/2;
 	    Y = e.pageY-offsetYSmall-maskHeight/2;
 	    X = X<0?0:X && X+maskWidth>smallWidth?smallWidth-maskWidth:X;
