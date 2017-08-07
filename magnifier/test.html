@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+<style type="text/css">
+*{
+    margin:0;
+    padding: 0
+}
+.small,.big{
+	margin-right: 50px;
+	float: left;
+}
+.small{
+	width: 480px;
+	height:300px;
+	margin-bottom: 20px;
+	position: relative;
+	cursor: crosshair;
+}
+.big{
+    width: 480px;
+    height: 300px;
+	overflow: hidden;
+	position: relative;
+	background: #000;
+	border: 1px solid #000;
+	z-index: 99
+}
+.small img{
+	width: 480px;
+	height:300px;
+	/*position: absolute;*/
+}
+.big img{
+	position: absolute;
+}
+.mask{
+	width: 120px;
+	height: 75px;
+	background: rgba(200,200,200,0.3);
+	position: absolute;
+	top:0;
+}
+</style>
+</head>
+<body>
+	<div class="small">
+		<img src="pic.jpg">
+		<div class="mask"></div>
+	</div>
+	<div class="big">
+		<img src="pic.jpg">
+	</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript">
+    function movement(e) {
+    	var smallWidth = $(".small").width();
+	    var smallHeight = $(".small").height();
+	    var offsetXSmall = $(".small").offset().left;
+	    var offsetYSmall = $(".small").offset().top;
+	    var maskWidth = $(".mask").width();
+	    var maskHeight = $(".mask").height();
+	    X = e.pageX-offsetXSmall-maskWidth/2;
+	    Y = e.pageY-offsetYSmall-maskHeight/2;
+	    X = X<0?0:X && X+maskWidth>smallWidth?smallWidth-maskWidth:X;
+	    Y = Y<0?0:Y && Y+maskHeight>smallHeight?smallHeight-maskHeight:Y;
+	    console.log(X,Y);
+        $(".mask").css("top",Y).css("left",X);
+        $(".big").find("img").css("top",-4*Y).css("left",-4*X);
+	}
+	$(".small").on("mousemove",function () {
+        movement(event);
+    });
+</script>
+</html>
